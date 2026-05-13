@@ -1,0 +1,778 @@
+/* ══════════════════════════════════════════════
+   NextBinge – style.css
+   ══════════════════════════════════════════════ */
+
+/* ── CSS VARIABLES ── */
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --card: #16161f;
+  --border: #1e1e2e;
+  --red: #e50914;
+  --red-dim: #9b0710;
+  --gold: #f5c518;
+  --text: #e8e8f0;
+  --muted: #8888a8;
+  --accent: #4f46e5;
+}
+
+/* ── RESET ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ══════════════════════════════════════════════
+   NAVBAR
+   ══════════════════════════════════════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 3rem;
+  height: 64px;
+  background: linear-gradient(to bottom, rgba(0,0,0,.92) 0%, transparent 100%);
+  backdrop-filter: blur(2px);
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  transition: background .3s;
+}
+
+nav.scrolled {
+  background: rgba(10,10,15,.97);
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: .12em;
+  color: var(--red);
+  text-shadow: 5px 5px 30px rgba(229,9,20,.4);
+  text-decoration: none;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.6rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: .88rem;
+  font-weight: 500;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  transition: color .2s;
+  cursor: pointer;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+}
+
+.nav-links a.active {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Search */
+.search-wrap {
+  margin-left: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-wrap input {
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: .85rem;
+  padding: .45rem 1rem .45rem 2.4rem;
+  width: 220px;
+  outline: none;
+  transition: border-color .2s, width .3s;
+}
+
+.search-wrap input:focus {
+  border-color: var(--red);
+  width: 280px;
+}
+
+.search-wrap svg {
+  position: absolute;
+  left: .7rem;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════
+   HERO
+   ══════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  height: 92vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 4rem 5rem;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    #0d0010 0%,
+    #0a0a1a 30%,
+    #0f0005 60%,
+    #03080f 100%
+  );
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(229,9,20,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 10% 70%, rgba(79,70,229,.08) 0%, transparent 60%);
+}
+
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  opacity: .4;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+}
+
+.hero-eyebrow {
+  font-size: .75rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  line-height: 1;
+  letter-spacing: .06em;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #da0a0a80 0%, rgba(255,255,255,.6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 420px;
+  margin-bottom: 2rem;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  background: var(--red);
+  color: #fff;
+  padding: .8rem 2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: .95rem;
+  font-family: inherit;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+}
+
+.hero-cta:hover {
+  background: #f40612;
+  transform: translateY(-2px);
+}
+
+/* ══════════════════════════════════════════════
+   PAGES
+   ══════════════════════════════════════════════ */
+.page {
+  display: none;
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+.page.active {
+  display: block;
+}
+
+/* ══════════════════════════════════════════════
+   CATEGORY PILLS
+   ══════════════════════════════════════════════ */
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  padding: 2rem 3rem 1rem;
+}
+
+.cat-btn {
+  padding: .35rem 1.2rem;
+  border-radius: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: .82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+  letter-spacing: .04em;
+}
+
+.cat-btn:hover {
+  border-color: var(--red);
+  color: var(--text);
+}
+
+.cat-btn.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ══════════════════════════════════════════════
+   SECTION HEADER
+   ══════════════════════════════════════════════ */
+.section-header {
+  padding: 2rem 3rem .8rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: .1em;
+  color: var(--text);
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
+}
+
+.section-count {
+  font-size: .78rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+}
+
+/* ══════════════════════════════════════════════
+   GRID
+   ══════════════════════════════════════════════ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  padding: 0 3rem 4rem;
+}
+
+/* ══════════════════════════════════════════════
+   CARD
+   ══════════════════════════════════════════════ */
+.card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 2/3;
+  background: var(--card);
+  cursor: pointer;
+  transition: transform .3s cubic-bezier(.25,.8,.25,1), box-shadow .3s;
+  border: 1px solid var(--border);
+}
+
+.card:hover {
+  transform: scale(1.07) translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.7), 0 0 0 1px rgba(229,9,20,.3);
+  z-index: 10;
+}
+
+.card-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter .3s;
+}
+
+.card:hover .card-poster {
+  filter: brightness(.35);
+}
+
+/* Hover overlay info */
+.card-info {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0,0,0,.95) 0%, rgba(0,0,0,.5) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.card:hover .card-info {
+  opacity: 1;
+}
+
+/* Always-visible bottom strip */
+.card-base {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: .7rem .75rem .6rem;
+  background: linear-gradient(to top, rgba(0,0,0,.9), transparent);
+  pointer-events: none;
+}
+
+.card-title-static {
+  font-size: .82rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-rating-static {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  font-size: .72rem;
+  color: var(--gold);
+  margin-top: .15rem;
+}
+
+/* Hover content */
+.card-hover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: .06em;
+  color: #fff;
+  margin-bottom: .3rem;
+}
+
+.card-hover-desc {
+  font-size: .73rem;
+  color: rgba(255,255,255,.78);
+  line-height: 1.55;
+  margin-bottom: .6rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.card-badge {
+  padding: .15rem .45rem;
+  border-radius: 3px;
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: var(--red);
+  color: #fff;
+}
+
+.card-rating-hover {
+  display: flex;
+  align-items: center;
+  gap: .2rem;
+  font-size: .75rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.watch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: .6rem;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #fff;
+  padding: .35rem .9rem;
+  border-radius: 4px;
+  font-size: .73rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background .2s;
+  width: fit-content;
+}
+
+.watch-btn:hover {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+/* ══════════════════════════════════════════════
+   NO RESULTS
+   ══════════════════════════════════════════════ */
+.no-results {
+  text-align: center;
+  padding: 5rem 2rem;
+  color: var(--muted);
+  display: none;
+}
+
+.no-results.show {
+  display: block;
+}
+
+.no-results-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: .4;
+}
+
+/* ══════════════════════════════════════════════
+   HOME MOOD CATEGORY TILES
+   ══════════════════════════════════════════════ */
+.home-hero-cats {
+  padding: 3rem 3rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: .75rem;
+}
+
+.home-cat-tile {
+  border-radius: 8px;
+  padding: 1.4rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: all .2s;
+  background: var(--card);
+}
+
+.home-cat-tile:hover {
+  border-color: var(--red);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(229,9,20,.15);
+}
+
+.home-cat-tile .emoji {
+  font-size: 1.8rem;
+  margin-bottom: .5rem;
+}
+
+.home-cat-tile .cat-name {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: .05em;
+}
+
+/* ══════════════════════════════════════════════
+   SCROLLBAR
+   ══════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ══════════════════════════════════════════════
+   MY PICKS — Horizontal scroll rows
+   ══════════════════════════════════════════════ */
+.picks-sub-label {
+  padding: 1.5rem 3rem .6rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: .1em;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+.picks-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0 3rem 1.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.picks-row::-webkit-scrollbar { height: 4px; }
+.picks-row::-webkit-scrollbar-track { background: transparent; }
+.picks-row::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.picks-row .card {
+  flex: 0 0 160px;
+  width: 160px;
+  aspect-ratio: 2/3;
+}
+
+/* ══════════════════════════════════════════════
+   QUIZ PAGE
+   ══════════════════════════════════════════════ */
+
+#quiz-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.quiz-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3rem 3.5rem;
+  max-width: 680px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+
+/* ── PROGRESS BAR ── */
+.quiz-progress-wrap {
+  width: 100%;
+  height: 5px;
+  background: var(--border);
+  border-radius: 99px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.quiz-progress-bar {
+  height: 100%;
+  background: var(--red);
+  border-radius: 99px;
+  transition: width .4s ease;
+  width: 20%;
+}
+
+.quiz-step-label {
+  font-size: .78rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+
+.quiz-question {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  letter-spacing: .06em;
+  color: var(--text);
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .85rem;
+  margin-bottom: 2.5rem;
+}
+
+.quiz-option {
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: .88rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  line-height: 1.4;
+}
+
+.quiz-option:hover {
+  border-color: var(--red);
+  background: rgba(229,9,20,.08);
+  transform: translateY(-2px);
+}
+
+.quiz-option.selected {
+  border-color: var(--red);
+  background: rgba(229,9,20,.15);
+  color: #fff;
+  font-weight: 600;
+}
+
+.quiz-option .opt-emoji {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+/* ── NAVIGATION BUTTONS ── */
+.quiz-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quiz-btn-back {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: .65rem 1.4rem;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: .88rem;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.quiz-btn-back:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.quiz-btn-next {
+  background: var(--red);
+  border: none;
+  color: #fff;
+  padding: .65rem 2rem;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: .88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+}
+
+.quiz-btn-next:hover {
+  background: #f40612;
+  transform: translateY(-2px);
+}
+
+.quiz-btn-next:disabled {
+  background: var(--border);
+  color: var(--muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── RESULTS SCREEN ── */
+.results-header {
+  text-align: center;
+  padding: 4rem 2rem 2rem;
+}
+
+.results-emoji {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.results-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: .1em;
+  color: var(--text);
+  margin-bottom: .6rem;
+}
+
+.results-sub {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 1.8rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.quiz-retake-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: .65rem 1.8rem;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: .88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  margin-bottom: 1rem;
+}
+
+.quiz-retake-btn:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* ── RESPONSIVE QUIZ ── */
+@media (max-width: 600px) {
+  .quiz-wrap { padding: 2rem 1.5rem; }
+  .quiz-options { grid-template-columns: 1fr; }
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════ */
+@media (max-width: 700px) {
+  nav { padding: 0 1.2rem; gap: 1rem; }
+  .logo { font-size: 1.5rem; }
+  .nav-links { gap: .8rem; }
+  .hero { padding: 0 1.5rem 3rem; }
+  .categories,
+  .section-header,
+  .grid { padding-left: 1.2rem; padding-right: 1.2rem; }
+  .home-hero-cats { padding: 1.5rem 1.2rem 0; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .picks-row { padding: 0 1.2rem 1.5rem; }
+  .picks-sub-label { padding: 1.5rem 1.2rem .6rem; }
+  .picks-row .card { flex: 0 0 130px; width: 130px; }
+}

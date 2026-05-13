@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SuggestaFlix – Find Your Next Watch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ══════════════════════════ NAVBAR ══════════════════════════ -->
+  <nav id="navbar">
+    <span class="logo" onclick="showPage('home')">SuggestaFlix</span>
+    <ul class="nav-links">
+      <li><a id="nav-home" class="active" onclick="showPage('home')">Home</a></li>
+      <li><a id="nav-movies" onclick="showPage('movies')">Movies</a></li>
+      <li><a id="nav-series" onclick="showPage('series')">Series</a></li>
+      <li><a id="nav-quiz" onclick="showPage('quiz')">🎯 Find My Watch</a></li>
+    </ul>
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search title…" oninput="onSearch(this.value)"/>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════ HOME PAGE ══════════════════════════ -->
+  <div id="page-home" class="page active">
+    <div class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">✦ Handpicked by me, just for you</div>
+        <h1 class="hero-title">Stop Scrolling.<br/>Start Watching.</h1>
+        <p class="hero-sub">A curated collection of movies & series sorted by vibe — no more "what should I watch" paralysis.</p>
+        <button class="hero-cta" onclick="showPage('movies')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Browse Movies
+        </button>
+      </div>
+    </div>
+
+    <!-- Category mood tiles -->
+    <div class="section-header">
+      <span class="section-title">Browse by Mood</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="home-hero-cats" id="home-cat-grid"></div>
+
+    <!-- MY PICKS -->
+    <div class="section-header" style="margin-top:2.5rem">
+      <span class="section-title">My Picks</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="picks-sub-label">🎬 Movies</div>
+    <div class="picks-row" id="picks-movies-row"></div>
+
+    <div class="picks-sub-label">📺 Series</div>
+    <div class="picks-row" id="picks-series-row"></div>
+
+    <!-- Featured picks grid -->
+    <div class="section-header" style="margin-top:2.5rem">
+      <span class="section-title">Featured Picks</span>
+      <div class="section-line"></div>
+      <span class="section-count" id="home-count"></span>
+    </div>
+    <div class="grid" id="home-grid"></div>
+  </div>
+
+  <!-- ══════════════════════════ MOVIES PAGE ══════════════════════════ -->
+  <div id="page-movies" class="page">
+    <div class="section-header" style="padding-top:2.5rem">
+      <span class="section-title">Movies</span>
+      <div class="section-line"></div>
+      <span class="section-count" id="movies-count"></span>
+    </div>
+    <div class="categories" id="movies-cats"></div>
+    <div class="grid" id="movies-grid"></div>
+    <div class="no-results" id="movies-no">
+      <div class="no-results-icon">🎬</div>
+      <p>No movies found in this category.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════ SERIES PAGE ══════════════════════════ -->
+  <div id="page-series" class="page">
+    <div class="section-header" style="padding-top:2.5rem">
+      <span class="section-title">Web Series</span>
+      <div class="section-line"></div>
+      <span class="section-count" id="series-count"></span>
+    </div>
+    <div class="categories" id="series-cats"></div>
+    <div class="grid" id="series-grid"></div>
+    <div class="no-results" id="series-no">
+      <div class="no-results-icon">📺</div>
+      <p>No series found in this category.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════ QUIZ PAGE ══════════════════════════ -->
+  <div id="page-quiz" class="page">
+
+    <!-- QUIZ CARD (questions shown here) -->
+    <div id="quiz-screen">
+      <div class="quiz-wrap">
+
+        <!-- Progress bar -->
+        <div class="quiz-progress-wrap">
+          <div class="quiz-progress-bar" id="quiz-progress-bar"></div>
+        </div>
+        <div class="quiz-step-label" id="quiz-step-label">Question 1 of 5</div>
+
+        <!-- Question -->
+        <div class="quiz-question" id="quiz-question"></div>
+
+        <!-- Options -->
+        <div class="quiz-options" id="quiz-options"></div>
+
+        <!-- Navigation buttons -->
+        <div class="quiz-nav">
+          <button class="quiz-btn-back" id="quiz-back" onclick="quizBack()">← Back</button>
+          <button class="quiz-btn-next" id="quiz-next" onclick="quizNext()">Next →</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RESULTS SCREEN (shown after quiz) -->
+    <div id="quiz-results" style="display:none;">
+      <div class="results-header">
+        <div class="results-emoji" id="results-emoji"></div>
+        <h2 class="results-title">Your Perfect Matches</h2>
+        <p class="results-sub" id="results-sub"></p>
+        <button class="quiz-retake-btn" onclick="retakeQuiz()">🔁 Retake Quiz</button>
+      </div>
+      <div class="grid" id="quiz-results-grid"></div>
+      <div class="no-results" id="quiz-no">
+        <div class="no-results-icon">😕</div>
+        <p>No exact matches found. Try retaking the quiz!</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
