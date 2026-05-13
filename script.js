@@ -885,9 +885,9 @@ const SERIES = [
 ];
 
 // ════════════════════════════════════════════
-// MY PICKS — Manually curated by you!
+// MY PICKS 
 //
-// Put the IDs of exactly 10 movies and 10 series
+// Put the IDs of your fav  movies and  series
 // in the order you want them to appear.
 // The first ID shows up first in the row.
 // ════════════════════════════════════════════
@@ -1096,10 +1096,10 @@ renderHome();
 // ════════════════════════════════════════════════════════════════
 //  QUIZ FEATURE  — ID-based precision matching
 //
-//  How it works:
+// 
 //  Each answer votes directly for specific movie/series IDs.
-//  After 7 questions the IDs with the most votes win.
-//  Result shows only the TOP 1-2 titles — laser precise.
+//  After 4 questions the IDs with the most votes win.
+//  Result shows only the TOP 4-5 titles — laser precise.
 // ════════════════════════════════════════════════════════════════
 
 // ── QUESTIONS ──────────────────────────────────────────────────
