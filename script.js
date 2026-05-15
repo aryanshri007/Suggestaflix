@@ -18,7 +18,7 @@
 
 const CATEGORIES = [
   "All", "Action", "Suspense", "Thriller", "Mystery","Crime","Horror",
-  "Sci-Fi", "Comedy", "Rom-Com", "Marvel", "DC", "Animated", "Documentary",
+  "Sci-Fi", "Comedy","Drama", "Rom-Com", "Marvel", "DC", "Animated", "Documentary",
 ];
 
 const CAT_EMOJI = {
@@ -31,6 +31,7 @@ const CAT_EMOJI = {
   "Horror":  "👻",
   "Sci-Fi":  "🚀",
   "Comedy":  "😂",
+   "Drama": "😬",
   "Rom-Com": "💕",
   "Marvel":  "⚡",
   "DC":      "🦇",
@@ -443,7 +444,7 @@ const MOVIES = [
     id: 41,
     title: "Hi Nanna",
     category: ["Rom-Com",],
-    rating: 8.6,
+    rating: 8.8,
     poster: "https://i.pinimg.com/736x/b6/71/48/b6714847bbb3e8fecbea6fc7e4e2f085.jpg",
     ott: "Netflix",
     ottUrl: "https://www.netflix.com/in/title/81753408?source=imdb&fromWatch=true",
@@ -453,11 +454,21 @@ const MOVIES = [
     id: 42,
     title: "Lucky Baskhar",
     category: ["Thriller","Crime"],
-    rating: 8.6,
+    rating: 9.2,
     poster: "https://i.pinimg.com/736x/d9/b0/47/d9b047c49b005f8b9de9642f88f5f59d.jpg",
     ott: "Netflix",
     ottUrl: "https://www.netflix.com/in/title/81902035?source=imdb&fromWatch=true",
     desc: "A cash-strapped cashier working at a bank embarks on a risky investment scheme and soon gets drawn into the murky world of money laundering."
+  },
+   {
+    id: 43,
+    title: "The Sky is Pink",
+    category: ["Drama","Real Story"],
+    rating: 8.4,
+    poster: "https://i.pinimg.com/736x/7e/94/8b/7e948b3cc258b7d34a30fa3f33bf91c8.jpg",
+    ott: "Netflix",
+    ottUrl: "https://www.netflix.com/in/title/81037373",
+    desc: "Based on the love story of a couple spanning 25 years and told through the lens of their spunky teenage daughter Aisha Chaudhary, who was diagnosed with pulmonary fibrosis."
   },
 ];
 
@@ -885,11 +896,7 @@ const SERIES = [
 ];
 
 // ════════════════════════════════════════════
-// MY PICKS — Manually curated by you!
-//
-// Put the IDs of exactly 10 movies and 10 series
-// in the order you want them to appear.
-// The first ID shows up first in the row.
+// MY PICKS — 
 // ════════════════════════════════════════════
 const MY_MOVIE_PICKS = [3, 2, 4, 6, 20, 13, 31, 27, 29, 30, 41, 42, 36];
 const MY_SERIES_PICKS = [105, 101, 103, 128, 107, 109, 113, 102, 134, 135, 131 ,125, 136];
@@ -1112,10 +1119,10 @@ const QUIZ_QUESTIONS = [
   {
     question: "What's the vibe tonight?",
     options: [
-      { emoji: "💥", label: "Action & adrenaline",      ids: [1, 3, 5, 7, 19,21,23, 109, 112, 121,135,134,128,125] },
-      { emoji: "🧠", label: "Twist my brain",           ids: [2, 15, 6, 13, 29, 17, 128, 124, 136,137] },
-      { emoji: "😂", label: "Just laughs & chill",      ids: [7, 16, 25,26,30,31, 114, 115, 116, 117, 120] },
-      { emoji: "💕", label: "Warm & feel-good",         ids: [8, 18, 20,41,35,31,30, 118, 119] },
+      { emoji: "💥", label: "Action & adrenaline",      ids: [1, 3, 5, 7, 19,21,23, 109, 112, 121 ,135, 134, 128, 125] },
+      { emoji: "🧠", label: "Twist my brain",           ids: [2, 15, 6, 13, 29, 17, 128, 124, 136, 137] },
+      { emoji: "😂", label: "Just laughs & chill",      ids: [7, 16, 25, 26, 30, 31, 114, 115, 116, 117, 120] },
+      { emoji: "💕", label: "Warm & feel-good",         ids: [8, 18, 20, 41 ,43, 35, 31, 30, 118, 119] },
     ]
   },
 
@@ -1123,10 +1130,10 @@ const QUIZ_QUESTIONS = [
   {
     question: "What pulls you in the most?",
     options: [
-      { emoji: "🕵️", label: "Mystery & dark secrets",  ids: [6, 9, 13, 15, 17, 24, 106, 110,136] },
-      { emoji: "⚡", label: "Superheroes & fantasy",    ids: [1, 5, 7, 11, 12, 103,102,106,112,113, 105, 108, 113] },
-      { emoji: "😱", label: "Horror & suspense",        ids: [27, 28, 102, 107, 122, 123,136,124,137] },
-      { emoji: "🎭", label: "Real people, real drama",  ids: [8, 14, 18, 20, 22, 109, 114, 119,125,130,132,131,134,135,136] },
+      { emoji: "🕵️", label: "Mystery & dark secrets",  ids: [6, 9, 13, 15, 17, 24, 29, 106, 110, 136] },
+      { emoji: "⚡", label: "Superheroes & fantasy",    ids: [1, 5, 7, 11, 12, 103, 102, 106, 112, 113, 105, 108, 113] },
+      { emoji: "😱", label: "Horror & suspense",        ids: [27, 28, 29, 102, 107, 122, 123, 136, 124, 137] },
+      { emoji: "🎭", label: "Real people, real drama",  ids: [8, 14, 18, 20, 22, 109, 114, 119, 125, 130, 132, 131, 134, 135, 136] },
     ]
   },
 
