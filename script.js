@@ -470,6 +470,36 @@ const MOVIES = [
     ottUrl: "https://www.netflix.com/in/title/81037373",
     desc: "Based on the love story of a couple spanning 25 years and told through the lens of their spunky teenage daughter Aisha Chaudhary, who was diagnosed with pulmonary fibrosis."
   },
+   {
+    id: 44,
+    title: "Baramulla",
+    category: ["Suspense","Horror"],
+    rating: 8.1,
+    poster: "https://i.pinimg.com/736x/b5/65/e6/b565e60656f2353477f779a7d77b6cf3.jpg",
+    ott: "Netflix",
+    ottUrl: "https://www.netflix.com/in/title/82127717",
+    desc: "A police officer investigating missing children cases discovers disturbing truths while supernatural occurrences threaten his family and Baramulla's tranquility."
+  },
+  {
+    id: 45,
+    title: 'The Hating Game',
+    category: ["Rom-Com"],
+    rating: 8.5,
+    poster: "https://i.pinimg.com/1200x/2d/49/ee/2d49ee64b16d83a5ac09e205dd76a1f5.jpg",
+    ott: "Amazon Prime",
+    ottUrl: "https://www.primevideo.com/detail/The-Hating-Game/0SEU9SFLJQ11S3VKXBD8DHNCCA",
+    desc: "Resolving to achieve professional success without compromising her ethics, Lucy embarks on a ruthless game of one-upmanship against cold and efficient nemesis Joshua, a rivalry that is complicated by her growing attraction to him."
+  },
+  {
+    id: 46,
+    title: 'Ramona and Beezus',
+    category: ["Rom-Com","Comedy"],
+    rating: 7.5,
+    poster: "https://i.pinimg.com/1200x/fa/36/73/fa367337caaa79e5baaae534a44f29a8.jpg",
+    ott: "Amazon Prime",
+    ottUrl: "https://www.primevideo.com/detail/Ramona-and-Beezus/0OJW3LSZWL971XWYSRSLBBAN06",
+    desc: "An adventurous young girl uses her imagination to escape her reality, but it is spinning out of reach."
+  },
 ];
 
 const SERIES = [
