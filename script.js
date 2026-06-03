@@ -1343,3 +1343,47 @@ function retakeQuiz() {
   grid.style.margin    = '';
   initQuiz();
 }
+/* ═════════
+   MOBILE JS 
+   ═════════ */
+
+// ── HAMBURGER TOGGLE ────────────────────────
+const navToggle  = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+navToggle.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  navToggle.classList.toggle('open', isOpen);
+  navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (!navToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+    mobileMenu.classList.remove('open');
+    navToggle.classList.remove('open');
+  }
+});
+
+// ── MOBILE NAV HELPER ────────────────────────
+function mobileNav(page) {
+  // Sync active state on mobile links
+  document.querySelectorAll('.mobile-menu a[id^="mob-"]').forEach(a => a.classList.remove('active'));
+  document.getElementById('mob-' + page).classList.add('active');
+
+  // Clear mobile search input
+  document.getElementById('mobileSearchInput').value = '';
+
+  // Close the menu
+  mobileMenu.classList.remove('open');
+  navToggle.classList.remove('open');
+
+  // Navigate
+  showPage(page);
+}
+
+// ── SYNC SEARCH between desktop & mobile inputs ──
+document.getElementById('mobileSearchInput').addEventListener('input', function() {
+  document.getElementById('searchInput').value = this.value;
+  onSearch(this.value);
+});
