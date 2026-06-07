@@ -1407,7 +1407,7 @@ const FREE_TAGS = {
   47:  { platform: "YouTube", url: "https://www.youtube.com/watch?v=RBQamFajUSU" },
   // series id → { platform, url }
   136: { platform: "MX Player", url: "https://www.mxplayer.in/show/watch-bhay-the-gaurav-tiwari-mystery/season-1/ek-gehra-raaz-online-c4dcd7765e8f17c57ed76c34d800afa8?watch=true" },
-  132: { platform: "SonyLIV",   url: "https://www.sonyliv.com/shows/gullak-1700000659" },
+  133: { platform: "Amazon Prime",   url: "https://www.primevideo.com/detail/Yeh-Meri-Family/0M2EI736ATLXD4XBKCULXKQNMV" },
 };
 
 // ════════════════════════════════════════════
