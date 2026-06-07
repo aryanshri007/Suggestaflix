@@ -535,7 +535,7 @@ const MOVIES = [
     title: '8 x 10 Tasveer',
     category: ["Mystery","Thriller", "Time Travel"],
     rating: 7.3,
-    poster: "https://i.pinimg.com/736x/cd/25/16/cd2516a7ebbad49acf1c1c8abb7f3cb3.jpg",
+    poster: "https://i.pinimg.com/736x/54/db/5e/54db5e9633e2893319c84d151d93baba.jpg",
     ott: "You Tube",
     ottUrl: "https://www.youtube.com/watch?v=CXfb0uFSXXU&t=0s",
     desc: "A forest ranger with the ability to visit the past by looking at photographs attempts to solve the mystery behind his father's sudden death."
