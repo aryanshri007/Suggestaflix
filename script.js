@@ -500,6 +500,46 @@ const MOVIES = [
     ottUrl: "https://www.primevideo.com/detail/Ramona-and-Beezus/0OJW3LSZWL971XWYSRSLBBAN06",
     desc: "An adventurous young girl uses her imagination to escape her reality, but it is spinning out of reach."
   },
+   {
+    id: 47,
+    title: 'Go Goa Gone',
+    category: ["Brainrot","Comedy"],
+    rating: 6.7,
+    poster: "https://i.pinimg.com/736x/12/7e/45/127e4520f58860e96490ec8d274ab51f.jpg",
+    ott: "You Tube",
+    ottUrl: "https://www.youtube.com/watch?v=RBQamFajUSU",
+    desc: "A group of friends, just looking to have a good time in a rave party on a remote island in Goa, find out that the island is infested with Zombies."
+  },.
+   {
+    id: 48,
+    title: 'No Smoking',
+    category: ["Mystery","Horror"],
+    rating: 7.3,
+    poster: "https://i.pinimg.com/1200x/24/52/fb/2452fb47b679866ce87b5728a49bd01f.jpg",
+    ott: "You Tube",
+    ottUrl: "https://www.youtube.com/watch?v=Un8JMyZDg0E",
+    desc: "A heavily addicted smoker is unprepared for the true price he must pay when he asks a guru's help to kick the habit."
+  },
+   {
+    id: 49,
+    title: 'Table No.21',
+    category: ["Mystery","Thriller"],
+    rating: 7.3,
+    poster: "https://i.pinimg.com/736x/cd/25/16/cd2516a7ebbad49acf1c1c8abb7f3cb3.jpg",
+    ott: "You Tube",
+    ottUrl: "https://www.youtube.com/watch?v=CXfb0uFSXXU&t=0s",
+    desc: "A couple is drawn into a game show with a whooping winning prize. However the game turns into more than a survival for them with no escape."
+  },
+   {
+    id: 50,
+    title: '8 x 10 Tasveer',
+    category: ["Mystery","Thriller", "Time Travel"],
+    rating: 7.3,
+    poster: "https://i.pinimg.com/736x/cd/25/16/cd2516a7ebbad49acf1c1c8abb7f3cb3.jpg",
+    ott: "You Tube",
+    ottUrl: "https://www.youtube.com/watch?v=CXfb0uFSXXU&t=0s",
+    desc: "A forest ranger with the ability to visit the past by looking at photographs attempts to solve the mystery behind his father's sudden death."
+  },
 ];
 
 const SERIES = [
