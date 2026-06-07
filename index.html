@@ -14,15 +14,15 @@
 <nav id="navbar">
   <span class="logo" onclick="showPage('home')">SuggestaFlix</span>
 
-  <!-- Desktop nav links (hidden on mobile) -->
   <ul class="nav-links">
-    <li><a id="nav-home" class="active" onclick="showPage('home')">Home</a></li>
-    <li><a id="nav-movies" onclick="showPage('movies')">Movies</a></li>
-    <li><a id="nav-series" onclick="showPage('series')">Series</a></li>
-    <li><a id="nav-quiz" onclick="showPage('quiz')">🎯 Find My Watch</a></li>
+    <li><a id="nav-home"     class="active" onclick="showPage('home')">Home</a></li>
+    <li><a id="nav-movies"              onclick="showPage('movies')">Movies</a></li>
+    <li><a id="nav-series"              onclick="showPage('series')">Series</a></li>
+    <li><a id="nav-free"                onclick="showPage('free')">💸 Free</a></li>
+    <li><a id="nav-toprated"            onclick="showPage('toprated')">⭐ Top Rated</a></li>
+    <li><a id="nav-quiz"                onclick="showPage('quiz')">🎯 Find My Watch</a></li>
   </ul>
 
-  <!-- Desktop search (hidden on mobile) -->
   <div class="search-wrap">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <circle cx="11" cy="11" r="8"/>
@@ -31,20 +31,20 @@
     <input type="text" id="searchInput" placeholder="Search title…" oninput="onSearch(this.value)"/>
   </div>
 
-  <!-- Hamburger (shown on mobile) -->
+  <!-- Hamburger (mobile only) -->
   <button class="nav-toggle" id="navToggle" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- Mobile menu overlay -->
+<!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <a id="mob-home" class="active" onclick="mobileNav('home')">Home</a>
-  <a id="mob-movies" onclick="mobileNav('movies')">Movies</a>
-  <a id="mob-series" onclick="mobileNav('series')">Series</a>
-  <a id="mob-quiz"   onclick="mobileNav('quiz')">🎯 Find My Watch</a>
-
-  <!-- Mobile search -->
+  <a id="mob-home"     class="active" onclick="mobileNav('home')">Home</a>
+  <a id="mob-movies"              onclick="mobileNav('movies')">🎬 Movies</a>
+  <a id="mob-series"              onclick="mobileNav('series')">📺 Series</a>
+  <a id="mob-free"                onclick="mobileNav('free')">💸 Free to Watch</a>
+  <a id="mob-toprated"            onclick="mobileNav('toprated')">⭐ Top Rated</a>
+  <a id="mob-quiz"                onclick="mobileNav('quiz')">🎯 Find My Watch</a>
   <div class="mobile-search">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <circle cx="11" cy="11" r="8"/>
@@ -126,6 +126,88 @@
       <p>No series found in this category.</p>
     </div>
   </div>
+  <!-- ══════════════ FREE TO WATCH PAGE ══════════════ -->
+<div id="page-free" class="page">
+
+  <!-- Hero banner -->
+  <div class="feature-hero feature-hero--free">
+    <div class="feature-hero-content">
+      <div class="feature-hero-eyebrow">💸 Zero cost, maximum entertainment</div>
+      <h1 class="feature-hero-title">Free to Watch</h1>
+      <p class="feature-hero-sub">Hand-picked movies &amp; series available for free on YouTube, Zee5, MX Player, SonyLIV and more — no subscription needed.</p>
+    </div>
+  </div>
+
+  <!-- Controls row -->
+  <div class="feature-controls">
+    <div class="type-toggle" role="group" aria-label="Filter by type">
+      <button id="free-type-all"    class="type-btn active" onclick="setFreeType('all')">All</button>
+      <button id="free-type-movies" class="type-btn"        onclick="setFreeType('movies')">🎬 Movies</button>
+      <button id="free-type-series" class="type-btn"        onclick="setFreeType('series')">📺 Series</button>
+    </div>
+    <span class="section-count" id="free-count" style="margin-left:auto"></span>
+  </div>
+
+  <!-- Genre pills (populated by JS) -->
+  <div class="categories" id="free-genre-pills"></div>
+
+  <!-- Free platform legend -->
+  <div class="free-legend">
+    <span class="free-legend-label">Available on:</span>
+    <span class="free-badge">▶ YouTube</span>
+    <span class="free-badge">🎬 Zee5</span>
+    <span class="free-badge">📱 MX Player</span>
+    <span class="free-badge">🎭 SonyLIV</span>
+    <span class="free-badge">+ more</span>
+  </div>
+
+  <div class="grid" id="free-grid"></div>
+  <div class="no-results" id="free-no">
+    <div class="no-results-icon">💸</div>
+    <p>No free titles found. Try changing the filter!</p>
+  </div>
+</div>
+
+
+<!-- ══════════════ TOP RATED PAGE ══════════════ -->
+<div id="page-toprated" class="page">
+
+  <!-- Hero banner -->
+  <div class="feature-hero feature-hero--top">
+    <div class="feature-hero-content">
+      <div class="feature-hero-eyebrow">⭐ Sorted by personal rating</div>
+      <h1 class="feature-hero-title">Top Rated</h1>
+      <p class="feature-hero-sub">Every title on this site ranked by rating — from the absolute best down. Use the slider to set your minimum threshold.</p>
+    </div>
+  </div>
+
+  <!-- Controls row -->
+  <div class="feature-controls">
+    <div class="type-toggle" role="group" aria-label="Filter by type">
+      <button id="top-type-all"    class="type-btn active" onclick="setTopRatedType('all')">All</button>
+      <button id="top-type-movies" class="type-btn"        onclick="setTopRatedType('movies')">🎬 Movies</button>
+      <button id="top-type-series" class="type-btn"        onclick="setTopRatedType('series')">📺 Series</button>
+    </div>
+
+    <!-- Rating slider -->
+    <div class="rating-slider-wrap">
+      <span class="rating-slider-icon">★</span>
+      <input  type="range" id="rating-slider"
+              min="1" max="10" step="0.1" value="8.5"
+              oninput="setTopRatedMin(this.value)"
+              class="rating-slider" />
+      <span class="rating-slider-label" id="rating-slider-label">8.5+</span>
+    </div>
+
+    <span class="section-count" id="toprated-count" style="margin-left:auto"></span>
+  </div>
+
+  <div class="grid" id="toprated-grid"></div>
+  <div class="no-results" id="toprated-no">
+    <div class="no-results-icon">⭐</div>
+    <p>No titles above that rating. Try lowering the slider!</p>
+  </div>
+</div>
 
   <!-- ══════════════════════════ QUIZ PAGE ══════════════════════════ -->
   <div id="page-quiz" class="page">

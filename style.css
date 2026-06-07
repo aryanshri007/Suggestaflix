@@ -1061,3 +1061,250 @@ nav.scrolled {
   .picks-row      { padding: 0 .9rem 1rem; }
   .picks-sub-label{ padding: 1.2rem .9rem .4rem; }
 }
+/* ── FEATURE HERO BANNERS ── */
+.feature-hero {
+  position: relative;
+  padding: 5rem 4rem 3.5rem;
+  overflow: hidden;
+  margin-top: 0;
+}
+
+.feature-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: .55;
+}
+
+.feature-hero--free::before {
+  background: radial-gradient(ellipse 70% 80% at 10% 50%, rgba(16,185,129,.18) 0%, transparent 65%),
+              radial-gradient(ellipse 50% 60% at 85% 20%, rgba(5,150,105,.1) 0%, transparent 60%);
+}
+
+.feature-hero--top::before {
+  background: radial-gradient(ellipse 70% 80% at 10% 50%, rgba(245,197,24,.18) 0%, transparent 65%),
+              radial-gradient(ellipse 50% 60% at 85% 20%, rgba(234,88,12,.1) 0%, transparent 60%);
+}
+
+.feature-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+}
+
+.feature-hero-eyebrow {
+  font-size: .75rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: .8rem;
+}
+
+.feature-hero--free .feature-hero-eyebrow  { color: #10b981; }
+.feature-hero--top  .feature-hero-eyebrow  { color: var(--gold); }
+
+.feature-hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  letter-spacing: .08em;
+  line-height: 1;
+  margin-bottom: .9rem;
+  color: var(--text);
+}
+
+.feature-hero-sub {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 500px;
+}
+
+/* ── CONTROLS ROW ── */
+.feature-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .8rem;
+  padding: .5rem 3rem 0;
+}
+
+/* ── TYPE TOGGLE (All / Movies / Series) ── */
+.type-toggle {
+  display: flex;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.type-btn {
+  padding: .42rem 1.1rem;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: .83rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+  letter-spacing: .04em;
+}
+
+.type-btn:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+
+.type-btn:hover {
+  color: var(--text);
+  background: rgba(255,255,255,.05);
+}
+
+.type-btn.active {
+  background: var(--red);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── FREE PLATFORM LEGEND ── */
+.free-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5rem;
+  padding: .8rem 3rem 0;
+  margin-bottom: 2rem;
+}
+
+.free-legend-label {
+  font-size: .75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-right: .2rem;
+}
+
+.free-badge {
+  padding: .22rem .75rem;
+  border-radius: 6px;
+  background: rgba(16,185,129,.12);
+  border: 1px solid rgba(16,185,129,.25);
+  color: #10b981;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
+/* ── FREE badge on card (shown in top-left corner) ── */
+.card .free-chip {
+  position: absolute;
+  top: .5rem;
+  left: .5rem;
+  z-index: 5;
+  background: #10b981;
+  color: #fff;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  padding: .18rem .5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* ── RATING SLIDER ── */
+.rating-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  flex-shrink: 0;
+}
+
+.rating-slider-icon {
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+.rating-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 160px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 99px;
+  outline: none;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.rating-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--gold);
+  cursor: pointer;
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--gold);
+  transition: transform .15s;
+}
+
+.rating-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.rating-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--gold);
+  cursor: pointer;
+  border: 2px solid var(--bg);
+}
+
+.rating-slider-label {
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--gold);
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+/* ── RANK BADGE on top-rated cards ── */
+.card .rank-chip {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  z-index: 5;
+  background: rgba(0,0,0,.72);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: .65rem;
+  font-weight: 800;
+  padding: .18rem .5rem;
+  border-radius: 4px;
+  pointer-events: none;
+  letter-spacing: .04em;
+}
+
+/* ── ADD FREE + RANK CHIP to card function ──
+   (handled in JS; just styles here) */
+
+/* ── NAV LINK additions (new pages) ── */
+/* These pick up existing .nav-links a styles automatically */
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .feature-hero      { padding: 4rem 2rem 2.5rem; }
+  .feature-controls  { padding: .5rem 2rem 0; }
+  .free-legend       { padding: .8rem 2rem 0; }
+}
+
+@media (max-width: 700px) {
+  .feature-hero      { padding: 3rem 1.4rem 2rem; }
+  .feature-controls  { padding: .5rem 1.2rem 0; gap: .6rem; }
+  .free-legend       { padding: .6rem 1.2rem 0; }
+  .rating-slider     { width: 110px; }
+  .feature-hero-title { font-size: clamp(2.2rem, 10vw, 3.5rem); }
+}

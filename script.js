@@ -1387,3 +1387,342 @@ document.getElementById('mobileSearchInput').addEventListener('input', function(
   document.getElementById('searchInput').value = this.value;
   onSearch(this.value);
 });
+/* ══════════════════════════════════════════════════════════
+   NEW FEATURES 
+   1. Free to Watch section (nav + page)
+   2. Top Rated section (sorted by IMDb rating)
+   ══════════════════════════════════════════════════════════ */
+
+// ════════════════════════════════════════════
+// FREE CONTENT DATA
+// Tag movies/series with  free:true  to show
+// them in the "Free to Watch" page.
+// Update ottFree / ottFreeUrl for each title.
+// ════════════════════════════════════════════
+const FREE_TAGS = {
+  // movie id → { platform, url }
+  16:  { platform: "Zee5",    url: "https://www.zee5.com/movies/details/phata-poster-nikhla-hero/0-0-movie_68960886" },
+  21:  { platform: "YouTube", url: "https://www.youtube.com/watch?v=eh3M5-IbRn8" },
+  33:  { platform: "YouTube", url: "https://www.youtube.com/watch?v=4-SCanh-a5E" },
+  47:  { platform: "YouTube", url: "https://www.youtube.com/watch?v=RBQamFajUSU" },
+  // series id → { platform, url }
+  136: { platform: "MX Player", url: "https://www.mxplayer.in/show/watch-bhay-the-gaurav-tiwari-mystery/season-1/ek-gehra-raaz-online-c4dcd7765e8f17c57ed76c34d800afa8?watch=true" },
+  132: { platform: "SonyLIV",   url: "https://www.sonyliv.com/shows/gullak-1700000659" },
+};
+
+// ════════════════════════════════════════════
+// FREE PLATFORMS
+// Movies/series whose ott matches these strings
+// are automatically included as free.
+// ════════════════════════════════════════════
+const FREE_PLATFORMS = ["youtube", "zee5", "mx player", "sonyliv", "sony liv", "mxplayer", "jio cinema", "jiocinema", "voot", "mx", "dd free dish"];
+
+function isFree(item) {
+  if (FREE_TAGS[item.id]) return true;
+  const platform = (item.ott || "").toLowerCase();
+  return FREE_PLATFORMS.some(fp => platform.includes(fp));
+}
+
+function getFreeItem(item) {
+  if (FREE_TAGS[item.id]) {
+    return { ...item, ott: FREE_TAGS[item.id].platform, ottUrl: FREE_TAGS[item.id].url };
+  }
+  return item;
+}
+
+// ════════════════════════════════════════════
+// FREE FILTER STATE
+// ════════════════════════════════════════════
+let freeTypeFilter  = 'all';   // 'all' | 'movies' | 'series'
+let freeGenreFilter = 'All';
+
+// ════════════════════════════════════════════
+// TOP RATED FILTER STATE
+// ════════════════════════════════════════════
+let topRatedTypeFilter = 'all';  // 'all' | 'movies' | 'series'
+let topRatedMin        = 8.5;    // minimum rating slider value
+
+// ════════════════════════════════════════════
+// RENDER FREE PAGE
+// ════════════════════════════════════════════
+function renderFree() {
+  const allFreeMovies = MOVIES.filter(isFree).map(getFreeItem);
+  const allFreeSeries = SERIES.filter(isFree).map(getFreeItem);
+
+  let pool = [];
+  if (freeTypeFilter === 'all')    pool = [...allFreeMovies, ...allFreeSeries];
+  else if (freeTypeFilter === 'movies') pool = allFreeMovies;
+  else if (freeTypeFilter === 'series') pool = allFreeSeries;
+
+  // Genre filter
+  if (freeGenreFilter !== 'All') {
+    pool = pool.filter(i => i.category.includes(freeGenreFilter));
+  }
+
+  // Search
+  if (searchQuery) {
+    pool = pool.filter(i => i.title.toLowerCase().includes(searchQuery.toLowerCase()));
+  }
+
+  // Update count badge
+  const countEl = document.getElementById('free-count');
+  if (countEl) countEl.textContent = pool.length + ' titles';
+
+  // Type toggle active state
+  ['all','movies','series'].forEach(t => {
+    const btn = document.getElementById('free-type-' + t);
+    if (btn) btn.classList.toggle('active', freeTypeFilter === t);
+  });
+
+  // Build genre pills (only genres present in pool before genre filter)
+  const rawPool = freeTypeFilter === 'all'    ? [...allFreeMovies, ...allFreeSeries]
+                : freeTypeFilter === 'movies' ? allFreeMovies : allFreeSeries;
+  const genresInPool = ['All', ...new Set(rawPool.flatMap(i => i.category))].filter(g => CATEGORIES.includes(g));
+
+  const pillsEl = document.getElementById('free-genre-pills');
+  if (pillsEl) {
+    pillsEl.innerHTML = genresInPool.map(g => `
+      <button class="cat-btn ${g === freeGenreFilter ? 'active' : ''}"
+              onclick="setFreeGenre('${g}')">
+        ${CAT_EMOJI[g] || '🎬'} ${g}
+      </button>`).join('');
+  }
+
+  renderGrid('free-grid', pool, 'free-no', 'free-count');
+}
+
+function setFreeType(type) {
+  freeTypeFilter  = type;
+  freeGenreFilter = 'All';
+  renderFree();
+}
+
+function setFreeGenre(g) {
+  freeGenreFilter = g;
+  renderFree();
+}
+
+// ════════════════════════════════════════════
+// RENDER TOP RATED PAGE
+// ════════════════════════════════════════════
+function renderTopRated() {
+  let pool = [];
+  if (topRatedTypeFilter === 'all')    pool = [...MOVIES, ...SERIES];
+  else if (topRatedTypeFilter === 'movies') pool = [...MOVIES];
+  else pool = [...SERIES];
+
+  // Search filter
+  if (searchQuery) {
+    pool = pool.filter(i => i.title.toLowerCase().includes(searchQuery.toLowerCase()));
+  }
+
+  // Sort descending by rating
+  pool.sort((a, b) => b.rating - a.rating);
+
+  // Rating threshold
+  pool = pool.filter(i => i.rating >= topRatedMin);
+
+  // Update slider label
+  const sliderLabel = document.getElementById('rating-slider-label');
+  if (sliderLabel) sliderLabel.textContent = topRatedMin.toFixed(1) + '+';
+
+  // Update slider value
+  const slider = document.getElementById('rating-slider');
+  if (slider) slider.value = topRatedMin;
+
+  // Count
+  const countEl = document.getElementById('toprated-count');
+  if (countEl) countEl.textContent = pool.length + ' titles';
+
+  // Type toggle
+  ['all','movies','series'].forEach(t => {
+    const btn = document.getElementById('top-type-' + t);
+    if (btn) btn.classList.toggle('active', topRatedTypeFilter === t);
+  });
+
+  renderGrid('toprated-grid', pool, 'toprated-no', 'toprated-count');
+}
+
+function setTopRatedType(type) {
+  topRatedTypeFilter = type;
+  renderTopRated();
+}
+
+function setTopRatedMin(val) {
+  topRatedMin = parseFloat(val);
+  renderTopRated();
+}
+
+// ════════════════════════════════════════════
+// PATCH showPage to handle new pages
+// ════════════════════════════════════════════
+const _originalShowPage = showPage;
+showPage = function(page) {
+  // Remove active from all pages including new ones
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => a.classList.remove('active'));
+
+  const pageEl = document.getElementById('page-' + page);
+  if (!pageEl) { _originalShowPage(page); return; }
+
+  pageEl.classList.add('active');
+
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
+
+  currentPage = page;
+
+  document.getElementById('searchInput').value = '';
+  searchQuery = '';
+  const mob = document.getElementById('mobileSearchInput');
+  if (mob) mob.value = '';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if      (page === 'home')     renderHome();
+  else if (page === 'movies')   renderMovies();
+  else if (page === 'series')   renderSeries();
+  else if (page === 'quiz')     initQuiz();
+  else if (page === 'free')     renderFree();
+  else if (page === 'toprated') renderTopRated();
+};
+
+// Also patch onSearch to handle new pages
+const _origOnSearch = onSearch;
+onSearch = function(val) {
+  searchQuery = val;
+  if      (currentPage === 'home')     renderHome();
+  else if (currentPage === 'movies')   renderMovies();
+  else if (currentPage === 'series')   renderSeries();
+  else if (currentPage === 'free')     renderFree();
+  else if (currentPage === 'toprated') renderTopRated();
+};
+
+// ════════════════════════════════════════════
+// CARD HTML PATCH — adds free chip + rank chip
+// This replaces the cardHTML function; paste it
+// AFTER the existing cardHTML in script.js
+// (or just replace the old one with this)
+// ════════════════════════════════════════════
+function cardHTML(item, opts = {}) {
+  const imgFallback = `https://via.placeholder.com/300x450/16161f/e50914?text=${encodeURIComponent(item.title)}`;
+
+  const freeChip = opts.showFreeChip
+    ? `<div class="free-chip">Free</div>` : '';
+
+  const rankChip = opts.rank
+    ? `<div class="rank-chip">#${opts.rank}</div>` : '';
+
+  return `
+    <div class="card" onclick="window.open('${item.ottUrl}','_blank')">
+      ${freeChip}${rankChip}
+      <img class="card-poster"
+           src="${item.poster}"
+           alt="${item.title}"
+           onerror="this.src='${imgFallback}'"/>
+      <div class="card-base">
+        <div class="card-title-static">${item.title}</div>
+        <div class="card-rating-static">★ ${item.rating}</div>
+      </div>
+      <div class="card-info">
+        <div class="card-hover-title">${item.title}</div>
+        <div class="card-hover-desc">${item.desc}</div>
+        <div class="card-meta">
+          ${item.category.map(c => `<span class="card-badge">${c}</span>`).join('')}
+          <span class="card-rating-hover">★ ${item.rating}/10</span>
+        </div>
+        <a class="watch-btn" href="${item.ottUrl}" target="_blank" onclick="event.stopPropagation()">
+          ▶ Watch on ${item.ott}
+        </a>
+      </div>
+    </div>`;
+}
+
+// ── Override renderGrid to support rank/free chips ──
+function renderGrid(containerId, items, noResultsId, countId, opts = {}) {
+  const container = document.getElementById(containerId);
+  const noRes     = document.getElementById(noResultsId);
+  const countEl   = document.getElementById(countId);
+
+  if (!container) return;
+
+  if (!items.length) {
+    container.innerHTML = '';
+    if (noRes)   noRes.classList.add('show');
+    if (countEl) countEl.textContent = '0 titles';
+  } else {
+    container.innerHTML = items.map((item, idx) => {
+      const cardOpts = {};
+      if (opts.showRanks)    cardOpts.rank = idx + 1;
+      if (opts.showFreeChip) cardOpts.showFreeChip = true;
+      return cardHTML(item, cardOpts);
+    }).join('');
+    if (noRes)   noRes.classList.remove('show');
+    if (countEl) countEl.textContent = `${items.length} titles`;
+  }
+}
+
+// ── Update renderFree and renderTopRated to use chips ──
+const _renderFreeBase = renderFree;
+renderFree = function() {
+  const allFreeMovies = MOVIES.filter(isFree).map(getFreeItem);
+  const allFreeSeries = SERIES.filter(isFree).map(getFreeItem);
+
+  let pool = [];
+  if (freeTypeFilter === 'all')         pool = [...allFreeMovies, ...allFreeSeries];
+  else if (freeTypeFilter === 'movies') pool = allFreeMovies;
+  else                                  pool = allFreeSeries;
+
+  if (freeGenreFilter !== 'All') pool = pool.filter(i => i.category.includes(freeGenreFilter));
+  if (searchQuery) pool = pool.filter(i => i.title.toLowerCase().includes(searchQuery.toLowerCase()));
+
+  const countEl = document.getElementById('free-count');
+  if (countEl) countEl.textContent = pool.length + ' titles';
+
+  ['all','movies','series'].forEach(t => {
+    const btn = document.getElementById('free-type-' + t);
+    if (btn) btn.classList.toggle('active', freeTypeFilter === t);
+  });
+
+  const rawPool = freeTypeFilter === 'all'    ? [...allFreeMovies, ...allFreeSeries]
+                : freeTypeFilter === 'movies' ? allFreeMovies : allFreeSeries;
+  const genresInPool = ['All', ...new Set(rawPool.flatMap(i => i.category))].filter(g => CATEGORIES.includes(g));
+
+  const pillsEl = document.getElementById('free-genre-pills');
+  if (pillsEl) {
+    pillsEl.innerHTML = genresInPool.map(g => `
+      <button class="cat-btn ${g === freeGenreFilter ? 'active' : ''}"
+              onclick="setFreeGenre('${g}')">
+        ${CAT_EMOJI[g] || '🎬'} ${g}
+      </button>`).join('');
+  }
+
+  renderGrid('free-grid', pool, 'free-no', 'free-count', { showFreeChip: true });
+};
+
+const _renderTopBase = renderTopRated;
+renderTopRated = function() {
+  let pool = [];
+  if (topRatedTypeFilter === 'all')         pool = [...MOVIES, ...SERIES];
+  else if (topRatedTypeFilter === 'movies') pool = [...MOVIES];
+  else                                      pool = [...SERIES];
+
+  if (searchQuery) pool = pool.filter(i => i.title.toLowerCase().includes(searchQuery.toLowerCase()));
+  pool.sort((a, b) => b.rating - a.rating);
+  pool = pool.filter(i => i.rating >= topRatedMin);
+
+  const sliderLabel = document.getElementById('rating-slider-label');
+  if (sliderLabel) sliderLabel.textContent = parseFloat(topRatedMin).toFixed(1) + '+';
+  const slider = document.getElementById('rating-slider');
+  if (slider) slider.value = topRatedMin;
+
+  const countEl = document.getElementById('toprated-count');
+  if (countEl) countEl.textContent = pool.length + ' titles';
+
+  ['all','movies','series'].forEach(t => {
+    const btn = document.getElementById('top-type-' + t);
+    if (btn) btn.classList.toggle('active', topRatedTypeFilter === t);
+  });
+
+  renderGrid('toprated-grid', pool, 'toprated-no', 'toprated-count', { showRanks: true });
+};
