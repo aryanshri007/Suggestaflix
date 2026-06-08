@@ -1125,7 +1125,7 @@ nav.scrolled {
   align-items: center;
   flex-wrap: wrap;
   gap: .8rem;
-  padding: .5rem 3rem 0;
+  padding: .5rem 3rem 1.8rem;
 }
 
 /* ── TYPE TOGGLE (All / Movies / Series) ── */
@@ -1173,7 +1173,6 @@ nav.scrolled {
   flex-wrap: wrap;
   gap: .5rem;
   padding: .8rem 3rem 0;
-  margin-bottom: 2rem;
 }
 
 .free-legend-label {
@@ -1297,13 +1296,13 @@ nav.scrolled {
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .feature-hero      { padding: 4rem 2rem 2.5rem; }
-  .feature-controls  { padding: .5rem 2rem 0; }
+  .feature-controls  { padding: .5rem 2rem 1.5rem; }
   .free-legend       { padding: .8rem 2rem 0; }
 }
 
 @media (max-width: 700px) {
   .feature-hero      { padding: 3rem 1.4rem 2rem; }
-  .feature-controls  { padding: .5rem 1.2rem 0; gap: .6rem; }
+  .feature-controls  { padding: .5rem 1.2rem 1.2rem; gap: .6rem; }
   .free-legend       { padding: .6rem 1.2rem 0; }
   .rating-slider     { width: 110px; }
   .feature-hero-title { font-size: clamp(2.2rem, 10vw, 3.5rem); }

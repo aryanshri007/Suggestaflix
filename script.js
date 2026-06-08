@@ -500,6 +500,46 @@ const MOVIES = [
     ottUrl: "https://www.primevideo.com/detail/Ramona-and-Beezus/0OJW3LSZWL971XWYSRSLBBAN06",
     desc: "An adventurous young girl uses her imagination to escape her reality, but it is spinning out of reach."
   },
+   {
+    id: 47,
+    title: 'Go Goa Gone',
+    category: ["Brainrot","Comedy"],
+    rating: 6.7,
+    poster: "https://i.pinimg.com/736x/12/7e/45/127e4520f58860e96490ec8d274ab51f.jpg",
+    ott: "You Tube",
+    ottUrl: "https://www.youtube.com/watch?v=RBQamFajUSU",
+    desc: "A group of friends, just looking to have a good time in a rave party on a remote island in Goa, find out that the island is infested with Zombies."
+  },.
+   {
+    id: 48,
+    title: 'No Smoking',
+    category: ["Mystery","Horror"],
+    rating: 7.3,
+    poster: "https://i.pinimg.com/1200x/24/52/fb/2452fb47b679866ce87b5728a49bd01f.jpg",
+    ott: "You Tube",
+    ottUrl: "https://www.youtube.com/watch?v=Un8JMyZDg0E",
+    desc: "A heavily addicted smoker is unprepared for the true price he must pay when he asks a guru's help to kick the habit."
+  },
+   {
+    id: 49,
+    title: 'Table No.21',
+    category: ["Mystery","Thriller"],
+    rating: 7.3,
+    poster: "https://i.pinimg.com/736x/cd/25/16/cd2516a7ebbad49acf1c1c8abb7f3cb3.jpg",
+    ott: "You Tube",
+    ottUrl: "https://www.youtube.com/watch?v=CXfb0uFSXXU&t=0s",
+    desc: "A couple is drawn into a game show with a whooping winning prize. However the game turns into more than a survival for them with no escape."
+  },
+   {
+    id: 50,
+    title: '8 x 10 Tasveer',
+    category: ["Mystery","Thriller", "Time Travel"],
+    rating: 7.3,
+    poster: "https://i.pinimg.com/736x/54/db/5e/54db5e9633e2893319c84d151d93baba.jpg",
+    ott: "You Tube",
+    ottUrl: "https://www.youtube.com/watch?v=CXfb0uFSXXU&t=0s",
+    desc: "A forest ranger with the ability to visit the past by looking at photographs attempts to solve the mystery behind his father's sudden death."
+  },
 ];
 
 const SERIES = [
@@ -1405,9 +1445,12 @@ const FREE_TAGS = {
   21:  { platform: "YouTube", url: "https://www.youtube.com/watch?v=eh3M5-IbRn8" },
   33:  { platform: "YouTube", url: "https://www.youtube.com/watch?v=4-SCanh-a5E" },
   47:  { platform: "YouTube", url: "https://www.youtube.com/watch?v=RBQamFajUSU" },
+  48:  { platform: "YouTube", url: "https://www.youtube.com/watch?v=Un8JMyZDg0E" },
+  49:  { platform: "YouTube", url: "https://www.youtube.com/watch?v=CXfb0uFSXXU&t=0s" },
+  50:  { platform: "YouTube", url: "https://www.youtube.com/watch?v=CXfb0uFSXXU&t=0s" },
   // series id → { platform, url }
   136: { platform: "MX Player", url: "https://www.mxplayer.in/show/watch-bhay-the-gaurav-tiwari-mystery/season-1/ek-gehra-raaz-online-c4dcd7765e8f17c57ed76c34d800afa8?watch=true" },
-  132: { platform: "SonyLIV",   url: "https://www.sonyliv.com/shows/gullak-1700000659" },
+  133: { platform: "Amazon Prime",   url: "https://www.primevideo.com/detail/Yeh-Meri-Family/0M2EI736ATLXD4XBKCULXKQNMV" },
 };
 
 // ════════════════════════════════════════════
